@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.result{
+animation : fadein 1s ease-in-out;
+justify-content: center;
+align-items: center;
+text-align: center;
+
+margin: 0 auto;
+font-family: sans-serif;
+
+}
+ul li{
+  display: inline-block;
+}
+@keyframes fadein{
+
+0%{
+opacity:0.2;
+}
+100%{
+opacity:1;
+}
+}
+.hide{
+  display:none;
+
+}
+.btn{
+
+
+      border-radius: 38px;
+    border: 1px solid #BEBEBE;
+    padding: 7px;
+    padding-top: 4px;
+    padding-bottom: 2px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+.card{
+
+  border-radius: 4px;
+  border: 2px dashed #BEBEBE;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+}
+.grider{
+
+  display: grid;
+  grid-template-columns:1fr 1fr 1fr ;
+  column-gap: 0px;
+}
+.li-res{
+  font-size: 120px;
+font-weight: 700;
+  font-family: sans-serif;
+}
+.btn-left{
+      text-align: center;
+    top: 0;
+    /* align-items: flex-end; */
+    left: 0;
+    align-self: center;
+}
+.btn-right{
+      text-align: center;
+    top: 0;
+    /* align-items: flex-end; */
+    right: 0;
+    align-self: center;
+}
+.li-btn{
+  align-self: center;
+}
+
+</style>
+</head>
+<body>
+
+
+<div class="card" style="width:100%">
+<ul class="grider">
+  <li class="li-btn"><span class="btn btn-left"><</span></li>
+  <li class="li-res hide" data-v="s" >S</li>
+  <li class="li-res hide" data-v="m" >M</li>
+  <li class="li-res hide" data-v="l" >L</li>
+  <li class="li-btn"><span class="btn btn-right">></span></li>
+</ul>
+<h1 id="res" class="result fadein">
+........
+</h1>
+</div>
+
+<script>
+function dd(st){
+document.querySelector(".demo").innerHTML = st
+}
+var me_res="l"
+var indexToShow;
+var arr = document.querySelectorAll(".li-res")
+
+for(let i=0;i<arr.length;i++){
+
+	if(arr[i].getAttribute('data-v') == me_res){
+    indexToShow=i
+    }
+}
+
+if(indexToShow!=0){
+arr[indexToShow].classList.remove("hide")
+}
+
+var btnLeft=document.querySelector(".btn-left")
+var btnRight=document.querySelector(".btn-right")
+btnLeft.addEventListener("click",function(e){
+ 
+if(indexToShow==0){
+return;
+} 
+
+arr[indexToShow].classList.add("hide")
+arr[indexToShow-1].classList.remove("hide")
+indexToShow = indexToShow-1
+dResults()
+
+})
+btnRight.addEventListener("click",function(e){
+if(indexToShow!=arr.length-1)
+{
+arr[parseInt(indexToShow)].classList.add("hide")
+arr[parseInt(indexToShow)+1].classList.remove("hide")
+
+indexToShow = parseInt(indexToShow)+1
+dResults()
+
+// for(let j=0;j<arr.length;j++){
+
+
+// if(j!=indexToShow+1){
+//   arr[j].classList.add('hide')
+// }
+// }
+
+}  
+})
+
+
+dResults()
+function dResults(){ 
+  
+  for(let d=0;d<arr.length;d++){
+    if(!arr[d].classList.contains("hide")){
+document.querySelector(".result").innerText = getLabel(arr[d].getAttribute('data-v'))
+    }
+  }
+
+}
+////// FIlter for objects
+
+/** filter object by key or value */
+
+/** filter object function */
+function filterObj( obj, predicate ) {
+  var result = {}, key;
+
+  for ( key in obj ) {
+    if ( obj.hasOwnProperty( key ) && predicate( key, obj[ key ] ) ) {
+      result[ key ] = obj[ key ];
+    }
+  }
+
+  return result;
+};
+
+// example
+
+// set object
+
+
+// filter out parameters using key and value
+
+
+// show result
+var labels = ['snugged','snug','small','Recommended','relax','relaxed']
+function getLabel($size){
+  var $s;
+
+  if($size == 's'){
+   $s= 'extra snug'
+  }
+  if($size == 'm'){
+   $s= 'perfect'
+  }
+  if($size == 'l'){
+    $s='Relaxed'
+  }
+  return $s;
+}
+</script>
+</body>
+</html>
